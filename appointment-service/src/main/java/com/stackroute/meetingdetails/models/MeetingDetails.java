@@ -15,5 +15,20 @@ public class MeetingDetails {
     @Id
     private String appointmentId;
     private String meetingId;
+	public String getAppointmentId() {
+		return appointmentId;
+	}
+	public void setAppointmentId(String appointmentId) {
+		this.appointmentId = appointmentId;
+	}
+	public String getMeetingId() {
+		return meetingId;
+	}
+	public void setMeetingId(String meetingId) {
+		this.meetingId = meetingId;
+	}
+    
+    
+    
 }
 
