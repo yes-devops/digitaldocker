@@ -5,9 +5,9 @@ services:
     build: config-server/
     ports:
     - "8888:8888"
-    networks:
-      net5:
-         ipv4_address: 12.12.0.2
+#    networks:
+#      net5:
+#         ipv4_address: 12.12.0.2
     restart: always
 
   eureka-server:
@@ -16,9 +16,9 @@ services:
     restart: always
     ports:
     - "8761:8761"
-    networks:
-      net5:
-         ipv4_address: 12.12.0.3
+#    networks:
+#      net5:
+#         ipv4_address: 12.12.0.3
     depends_on:
     - config-server
 
@@ -31,9 +31,9 @@ services:
     restart: always
     ports:
     - "8080:8080"
-    networks:
-      net5:
-         ipv4_address: 12.12.0.4
+#    networks:
+#      net5:
+#         ipv4_address: 12.12.0.4
 
 
   mysql:
@@ -42,9 +42,9 @@ services:
     restart: always
     ports:
     - "3306:3306"
-    networks:
-      net5:
-         ipv4_address: 12.12.0.5
+#    networks:
+#      net5:
+#         ipv4_address: 12.12.0.5
     environment:
       MYSQL_ROOT_PASSWORD: 'Password'
       MYSQL_PASSWORD: root
@@ -55,9 +55,9 @@ services:
     container_name: mongo-container
     ports:
     - "27017:27017"
-    networks:
-      net5:
-         ipv4_address: 12.12.0.6
+#    networks:
+#      net5:
+#         ipv4_address: 12.12.0.6
 
 
   user-service:
@@ -65,9 +65,9 @@ services:
     build: user-service/
     ports:
     - "8075:8075"
-    networks:
-      net5:
-         ipv4_address: 12.12.0.7
+#    networks:
+#      net5:
+#         ipv4_address: 12.12.0.7
     depends_on:
     - mongodb
     - eureka-server
@@ -79,9 +79,9 @@ services:
     build: authentication-service/
     ports:
     - "8095:8095"
-    networks:
-      net5:
-         ipv4_address: 12.12.0.8
+#    networks:
+#      net5:
+#         ipv4_address: 12.12.0.8
     depends_on:
     - eureka-server
     - config-server
@@ -92,9 +92,9 @@ services:
     build: appointment-service/
     ports:
     - "8060:8060"
-    networks:
-      net5:
-         ipv4_address: 12.12.0.9
+#    networks:
+#      net5:
+#         ipv4_address: 12.12.0.9
     depends_on:
     - mongodb
     - eureka-server
@@ -106,9 +106,9 @@ services:
     build: email-service/
     ports:
     - "7777:7777"
-    networks:
-      net5:
-         ipv4_address: 12.12.0.10
+#    networks:
+#      net5:
+#         ipv4_address: 12.12.0.10
     depends_on:
     - eureka-server
     - config-server
@@ -120,9 +120,9 @@ services:
     restart: always
     ports:
     - "3000:3000"
-    networks:
-      net5:
-         ipv4_address: 12.12.0.11
+#    networks:
+#      net5:
+#         ipv4_address: 12.12.0.11
    
 
   rabbitmq:
@@ -130,19 +130,19 @@ services:
     ports:
     - "15672:15672"
     - "5672:5672"
-    networks:
-      net5:
-         ipv4_address: 12.12.0.12
+#    networks:
+#      net5:
+#         ipv4_address: 12.12.0.12
     environment:
       RABBITMQ_DEFAULT_USER: "root"
       RABBITMQ_DEFAULT_PASS: "root123"
 
 
-networks:
-  net5:
-    driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 12.12.0.0/24
-          gateway: 12.12.0.1
+#networks:
+#  net5:
+#    driver: bridge
+#    ipam:
+#      driver: default
+#      config:
+#        - subnet: 12.12.0.0/24
+#          gateway: 12.12.0.1
