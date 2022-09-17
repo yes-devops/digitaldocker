@@ -3,8 +3,6 @@ services:
   config-server:
     container_name: config-server
     build: config-server/
-    hostname: localhost
-    network_mode: host
     ports:
     - "8888:8888"
     networks:
@@ -16,15 +14,13 @@ services:
     container_name: eureka-server
     build: eureka-server/
     restart: always
-    network_mode: host
-    hostname: localhost
     ports:
     - "8761:8761"
     networks:
       net5:
          ipv4_address: 12.12.0.3
     depends_on:
-      - config-server
+    - config-server
 
   api-gateway:
     container_name: api-gateway
@@ -33,8 +29,6 @@ services:
       - eureka-server
       - config-server
     restart: always
-    network_mode: host
-    hostname: localhost
     ports:
     - "8080:8080"
     networks:
@@ -46,8 +40,6 @@ services:
     image: mysql:latest
     container_name: mysql
     restart: always
-    hostname: localhost
-    network_mode: host
     ports:
     - "3306:3306"
     networks:
@@ -61,8 +53,6 @@ services:
   mongodb:
     image: mongo:latest
     container_name: mongo-container
-    network_mode: host
-    hostname: localhost
     ports:
     - "27017:27017"
     networks:
@@ -73,71 +63,61 @@ services:
   user-service:
     container_name: user-service
     build: user-service/
-    hostname: localhost
-    network_mode: host
     ports:
     - "8075:8075"
     networks:
       net5:
          ipv4_address: 12.12.0.7
     depends_on:
-      - mongodb
-      - eureka-server
-      - config-server
+    - mongodb
+    - eureka-server
+    - config-server
     restart: always
 
   authentication-service:
     container_name: authentication-service
     build: authentication-service/
-    hostname: localhost
-    network_mode: host
     ports:
     - "8095:8095"
     networks:
       net5:
          ipv4_address: 12.12.0.8
     depends_on:
-      - eureka-server
-      - config-server
+    - eureka-server
+    - config-server
     restart: always
 
   appointment-service:
     container_name: appointment-service
     build: appointment-service/
-    hostname: localhost
-    network_mode: host
     ports:
     - "8060:8060"
     networks:
       net5:
          ipv4_address: 12.12.0.9
     depends_on:
-      - mongodb
-      - eureka-server
-      - config-server
+    - mongodb
+    - eureka-server
+    - config-server
     restart: always
 
   email-service:
     container_name: email-service
     build: email-service/
-    hostname: localhost
-    network_mode: host
     ports:
     - "7777:7777"
     networks:
       net5:
          ipv4_address: 12.12.0.10
     depends_on:
-      - eureka-server
-      - config-server
+    - eureka-server
+    - config-server
     restart: always
 
   product-webapp:
     container_name: product-webapp
     build: product-webapp/
-    hostname: localhost
     restart: always
-    network_mode: host
     ports:
     - "3000:3000"
     networks:
