@@ -7,6 +7,9 @@ services:
     network_mode: host
     ports:
       - 8888:8888
+	networks:
+      net5:
+         ipv4_address: 12.12.0.2
     restart: always
 
   eureka-server:
@@ -17,6 +20,9 @@ services:
     hostname: localhost
     ports:
       - 8761:8761
+	networks:
+      net5:
+         ipv4_address: 12.12.0.3
     depends_on:
       - config-server
 
@@ -31,6 +37,9 @@ services:
     hostname: localhost
     ports:
       - 8080:8080
+	networks:
+      net5:
+         ipv4_address: 12.12.0.4
 
 
   mysql:
@@ -41,6 +50,9 @@ services:
     network_mode: host
     ports:
       - 3306:3306
+	networks:
+      net5:
+         ipv4_address: 12.12.0.5
     environment:
       MYSQL_ROOT_PASSWORD: 'Password'
       MYSQL_PASSWORD: root
@@ -53,6 +65,9 @@ services:
     hostname: localhost
     ports:
       - 27017:27017
+	networks:
+      net5:
+         ipv4_address: 12.12.0.6
 
 
   user-service:
@@ -62,6 +77,9 @@ services:
     network_mode: host
     ports:
       - 8075:8075
+	networks:
+      net5:
+         ipv4_address: 12.12.0.7
     depends_on:
       - mongodb
       - eureka-server
@@ -75,6 +93,9 @@ services:
     network_mode: host
     ports:
       - 8095:8095
+	networks:
+      net5:
+         ipv4_address: 12.12.0.8
     depends_on:
       - eureka-server
       - config-server
@@ -87,6 +108,9 @@ services:
     network_mode: host
     ports:
       - 8060:8060
+	networks:
+      net5:
+         ipv4_address: 12.12.0.9
     depends_on:
       - mongodb
       - eureka-server
@@ -100,6 +124,9 @@ services:
     network_mode: host
     ports:
       - 7777:7777
+	networks:
+      net5:
+         ipv4_address: 12.12.0.10
     depends_on:
       - eureka-server
       - config-server
@@ -113,6 +140,9 @@ services:
     network_mode: host
     ports:
       - 3000:3000
+	networks:
+      net5:
+         ipv4_address: 12.12.0.11
    
 
   rabbitmq:
@@ -120,6 +150,19 @@ services:
     ports:
       - 15672:15672
       - 5672:5672
+	networks:
+      net5:
+         ipv4_address: 12.12.0.12
     environment:
       RABBITMQ_DEFAULT_USER: "root"
       RABBITMQ_DEFAULT_PASS: "root123"
+
+
+networks:
+  net5:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 12.12.0.0/24
+          gateway: 12.12.0.1
